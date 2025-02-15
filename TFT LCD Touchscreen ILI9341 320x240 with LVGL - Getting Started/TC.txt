@@ -1,0 +1,4 @@
+Touchscreen calibration values.
+
+x = map(p.x, 0, 0, 1, SCREEN_WIDTH);
+y = map(p.y, 0, 0, 1, SCREEN_HEIGHT);
