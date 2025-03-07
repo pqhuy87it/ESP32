@@ -1,7 +1,8 @@
 #include <Adafruit_NeoPixel.h>
 
 // Define the pin where the built-in RGB LED is connected
-#define LED_PIN 8
+#define LED_PIN 8 // C6
+//#define LED_PIN 48 // S3
 
 // Define the number of LEDs in the strip (usually 1 for built-in LED)
 #define NUM_LEDS 1
