@@ -58,7 +58,7 @@ static const unsigned char PROGMEM sunfounderIcon[] = {
 };
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // initialize the OLED object
   if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
