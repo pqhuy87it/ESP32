@@ -1,0 +1,1 @@
+Building a Mini Macintosh Weather Station with ESP32! by The_Wrench_DIY on Thingiverse: https://www.thingiverse.com/thing:6887697

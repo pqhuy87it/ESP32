@@ -1,0 +1,5 @@
+Hello, There are few things you need to change in the codes. 
+
+1. First, you need to fill your WIFI details. 
+2. Add Latitude and Longitude of your location. 
+3. Add API Key, check codes for more info. 
