@@ -1,0 +1,88 @@
+﻿#######################################################################################
+DON'T COPY ALL THIS CODE DIRECTLY TO ARDUINO WEB EDITOR. LOOK AT THE VIDEO FOR HOW TO USE THE CODE.
+#######################################################################################
+
+#######################################################################################
+LED
+LED_PWM
+dht11_temperature
+dht11_humidity
+#######################################################################################
+
+#######################################################################################
+
+#######################################################################################
+#include "DHT.h"
+
+//----------------------------------------DHT11 sensor settings
+#define DHTPIN  15
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+//----------------------------------------
+
+#define LED_PIN 5
+
+//----------------------------------------Variable for LED with PWM
+#define LED_PWM_PIN   18
+const int freq = 5000;
+const int ledChannel = 0;
+const int resolution = 10; //Resolution 8, 10, 12, 15
+int pwm;
+//----------------------------------------
+
+=========================================================setup
+  pinMode(LED_PIN, OUTPUT);
+  
+  //----------------------------------------PWM settings
+  pinMode(LED_PWM_PIN, OUTPUT);
+  ledcSetup(ledChannel, freq, resolution);
+  ledcAttachPin(LED_PWM_PIN, ledChannel);
+  //----------------------------------------
+  
+  dht.begin();
+=========================================================
+
+=========================================================loop
+  get_DHT11_sensor_data();
+  delay(1000);
+=========================================================
+
+=========================================================LED
+  if (lED == 1) {
+    digitalWrite(LED_PIN, HIGH);
+  }
+  else {
+    digitalWrite(LED_PIN, LOW);
+  }
+=========================================================
+
+=========================================================LED_PWM
+  if(lED_PWM.getSwitch() == 1) {
+    pwm = map(lED_PWM.getBrightness(), 0, 100, 0, 1023);
+    ledcWrite(ledChannel, pwm);
+  }
+  else {
+    ledcWrite(ledChannel, 0);
+  }
+=========================================================
+
+void get_DHT11_sensor_data() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return;
+  }
+  
+  dht11_temperature = t;
+  dht11_humidity = h;
+
+  Serial.print(F("Humidity: "));
+  Serial.print(h);
+  Serial.print(F("%  Temperature: "));
+  Serial.print(t);
+  Serial.print(F("°C "));
+  Serial.println();
+}
+#######################################################################################

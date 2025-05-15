@@ -1,0 +1,58 @@
+﻿/*
+To make this project, make sure that your Arduino IDE has an ESP32 board installed in the "Board Manager", if you haven't already, see here for how to install it : https://www.youtube.com/watch?v=To3TIOFX6cA
+
+In your arduino IDE you must have this library installed:
+- DHT sensor library by Adafruit : https://github.com/adafruit/DHT-sensor-library
+- Adafruit Unified Sensor by Adafruit : https://github.com/adafruit/Adafruit_Sensor
+*/
+
+#include "DHT.h"
+
+#define DHTPIN  15
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+#define LED_1   5
+#define LED_2   18
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  
+  pinMode(LED_1, OUTPUT);
+  pinMode(LED_2, OUTPUT);
+
+  dht.begin();
+
+  digitalWrite(LED_1, HIGH);
+  digitalWrite(LED_2, LOW);
+
+  delay(1000);
+}
+
+void loop() {
+  delay(2000);
+
+  digitalWrite(LED_1, !digitalRead(LED_1));
+  digitalWrite(LED_2, !digitalRead(LED_2));
+  
+  // put your main code here, to run repeatedly:
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return;
+  }
+
+  Serial.print(F("Humidity: "));
+  Serial.print(h);
+  Serial.print(F("%  Temperature: "));
+  Serial.print(t);
+  Serial.print(F("°C "));
+  Serial.println();
+}
