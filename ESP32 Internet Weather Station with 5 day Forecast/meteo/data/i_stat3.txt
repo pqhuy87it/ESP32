@@ -1,0 +1,18 @@
+//сохранять в UTF-8 если есть названия на "великом и могучем"
+//#номер по порядку;название(14 символов);ссылка;;volume(1-100,;,)def=50%;icon(32x32, 32x64  or 32x96);
+#pl_list_name; зайцев;
+
+#1;z_rock;http://zaycevfm.cdnvideo.ru/ZaycevFM_metal_256.mp3;
+#2;z_class;http://zaycevfm.cdnvideo.ru/ZaycevFM_classic_256.mp3;
+#3;z_bass;http://zaycevfm.cdnvideo.ru/ZaycevFM_bass_256.mp3;
+#4;z_relax;http://zaycevfm.cdnvideo.ru/ZaycevFM_relax_256.mp3;
+#5;z_N_rock;http://zaycevfm.cdnvideo.ru/ZaycevFM_rock_256.mp3;
+{2;4;2;4;}
+//end
+//#define fav_count 4 in setting..
+
+
+
+
+
+

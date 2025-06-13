@@ -1,0 +1,30 @@
+//func;code;
+#play;3772834333;		//play-stop WWW
+#next;3772794553;		//scr or ch 
+#prev;3772819033;		//scr or ch
+#vl+;3772778233;		//vol or led+
+#vl-;3772810873;		//vol or led+ 
+#mute;3772837903;		//mute or screen timer
+#play_fm;3772801693;	//play-stop FM si/rda, 
+#play_mp3;3772813933; 	//play-stop mp3 (sd card)
+#fav;3772781293;		//timer,play favorite ( www,fm) or random mp3
+
+
+//кнопки 0-9
+#bt0;3772811383; 		//stop around screen or song name(play WWW)
+#bt1;3772784863;
+#bt2;3772817503;
+#bt3;3772801183;
+#bt4;3772780783;
+#bt5;3772813423;
+#bt6;3772797103;
+#bt7;3772788943;
+#bt8;3772821583;
+#bt9;3772805263;
+#id;377;	 		//анализирую коды которые начинаются на "xxx", остальные игнорирую
+				//analyzing codes that begin with "xxx," I ignore the rest
+
+
+
+(num+vl-) start timer on play
+//0- stop/play scr around (if around), stop/play display of a song (if play)

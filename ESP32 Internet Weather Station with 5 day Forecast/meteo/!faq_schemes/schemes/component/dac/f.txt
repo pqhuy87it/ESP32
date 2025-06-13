@@ -1,0 +1,3 @@
+FLT - Filter select : Normal latency (Low) / Low latency (High)
+DEMP - De-emphasis control for 44.1kHz sampling rate: Off (Low) / On (High)
+XSMT - Soft mute control: Soft mute (Low) / soft un-mute (High)

@@ -1,0 +1,25 @@
+//сохранять в UTF-8 если есть названия на "великом и могучем"
+//#номер по порядку;название(14 символов);ссылка;;volume(1-100,;,)def=50%;icon(32x32, 32x64  or 32x96);
+#pl_list_name;основной;
+#1;rockant;http://mp3channels.webradio.rockantenne.de/heavy-metal;40;r_anten.jpg;
+#2;allzic18;http://allzic18.ice.infomaniak.ch/allzic18.mp3;;
+#3;высоц А;http://rr-vysockij.hostingradio.ru/vysockij96.aacp;
+#4;Минск;https://radio.mk.by:8443/mk128;50;minsk.jpg;
+#5;PS Krautrock;http://94.249.254.14:7592/;stream/1;
+#6;R Planet;http://us5.internet-radio.com:8279/;stream;
+#7;Rock Global;http://us5.internet-radio.com/proxy/wcrg?mp=/stream;
+#8;Rock Planet;http://us5.internet-radio.com/proxy/crplanet?mp=/stream;
+#9;Pirate FM;http://uk3.internet-radio.com/proxy/dublinpirate?mp=/stream;
+#10;s8 DE;http://s8-webradio.antenne.de/antenne;
+#11;radius;http://stream2.datacenter.by/radiusfm_main;
+
+//избранные каналы двойной клик/favorite channels Double Click
+{1;3;4;11;}
+//end
+//#define fav_count 4 in setting..
+
+
+
+
+
+

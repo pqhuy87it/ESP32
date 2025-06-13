@@ -1,0 +1,27 @@
+//сохранять в UTF-8 если есть названия на "великом и могучем"
+//#номер по порядку;название(14 символов);ссылка;;volume(1-100,;,)def=50%;icon(32x32, 32x64  or 32x96);
+#pl_list_name;RELAX;
+
+#1;organ;http://79.120.77.11:8002/organ;
+#2;Орфей радио Классики;https://orfeyfm.hostingradio.ru:8034/orfeyfm128.mp3;
+#3;КИНО;http://edge67.streams.klassikradio.de/klassikradio-movie?aggregator=RDQC_www.klassikradio.de_klassikradio-movie-mp3128&aggkey=www.klassikradio.de;
+#5;z_class;http://zaycevfm.cdnvideo.ru/ZaycevFM_classic_256.mp3;
+#6;z_relax;http://zaycevfm.cdnvideo.ru/ZaycevFM_relax_256.mp3;
+#7;opera;http://klassikr.streamabc.net/klr-opera-mp3-128-3478897?sABC=6234s3nq%230%23np3o7nn9sp2775s7q16556s9p8r0r76p%23jjj.xynffvxenqvb.qr&amsparams=playerid:www.klassikradio.de;skey:1647637421;
+#8;mixadance;http://stream.mixadance.fm/relax;
+#9;dimensione_relax;http://str.pcradio.ru/dimensione_relax-hi;
+#10;ibizara_relax;http://str.pcradio.ru/ibizara_relax-hi;
+#11;ЛЕС;http://str5.pcradio.ru/nature_radio-med;
+#12;ДОЖДЬ;http://185.80.221.113:8023/stream;
+#13;Эмбиент;http://strw1.openstream.co/390?aw_0_1st.collectionid%3D2676%26stationId%3D2676%26publisherId%3D210%26k%3D1647636438;
+#14;Allzic Radio Zen;http://allzic20.ice.infomaniak.ch/allzic20.mp3;
+//избранные/favorite
+{1;5;11;12;}
+//end
+//#define fav_count 4 in setting..
+
+
+
+
+
+

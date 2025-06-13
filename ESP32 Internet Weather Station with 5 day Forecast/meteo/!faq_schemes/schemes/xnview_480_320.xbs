@@ -1,0 +1,5 @@
+resize( 1 lanczos 480 320 -1 0 1 )
+canvas( 0 480 320 4 0 0 0 0 )
+settings( 1 0 0 1 0 0 0 )
+output_path( T:\1 )
+output( jpeg 100 0 0 0 0 0 1 0 0 0 1 )

@@ -1,0 +1,6 @@
+- Adafruit BME280 Library (V2.2.4)  : Install via "Manage Libraries" or "Library Manager" in the Arduino IDE with the search keyword "Adafruit BME280 Library".
+- Adafruit Unified Sensor (V1.0.3)  : Install via "Manage Libraries" or "Library Manager" in the Arduino IDE with the search keyword "Adafruit Unified Sensor".
+- LiquidCrystal_I2C (V1.1.4)        : https://github.com/johnrickman/LiquidCrystal_I2C
+- AsyncTCP (V1.1.1)                 : https://github.com/me-no-dev/AsyncTCP
+- ESPAsyncWebServer (V1.2.2)        : https://github.com/me-no-dev/ESPAsyncWebServer
+- Arduino_JSON (V0.1.0)             : Install via "Manage Libraries" or "Library Manager" in the Arduino IDE with the search keyword "Arduino_JSON".

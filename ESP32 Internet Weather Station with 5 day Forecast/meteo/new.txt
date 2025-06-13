@@ -1,0 +1,605 @@
+
+Чтобы запустить проект //To start a project
+==========================================
+если версии плат или библиотек более поздние, то возможны
+ошибки компиляции, можно в настройках поставить сообщения компилятора
+"ничего" или "по умолчанию", либо ставить рекомендованные версии
+и потом пробовать обновлять.
+
+arduino ide 1.8.16 (2.0 beta тоже тестировал, ошибок нет)
+			ESP32 1.0.2,1.0.4  
+- более новые esp32 (>1.04) , у меня проблема с WIFI
+- если #define audio_lib2 и скачали последнюю версию ESP32-audioI2S-master, 
+будет ошибка компиляции на 1.02, брать из архива или ставить
+ ESP32 >= 1.0.6
+ 
+
+esp8266 2.5.2 (более новые, проблема с WIFI
+ошибка компиляции SI7021)
+
+ установить рекоменд версии ide и плат ESP,
+install version recommendation
+1. Скачать проект и библиотеки//Download Project and Libraries.
+Проект распаковать по короткому пути с подкаталогами.
+Unpack the project in a short path with subdirectories.
+заполнить свои данные или перенести/ to enter the data
+чтобы добавить датчики раскомментировать #define xxx
+to add sensors to uncomment # define xxx
+дополнительная настройка в config.txt //additional configuration in config.txt
+config.txt править через FTP user/password esp8266/esp8266 (#define ftp) или http:/IP ESP
+config.txt correct through FTP user/password esp8266/esp8266 (#define ftp) or http:/IP ESP
+
+				Settings_meteo.h 
+!!!важно в Settings_meteo.h выбрать разрешение 
+#define tft_320_240 или or #define tft_480_320
+настроить драйвер дисплея в файлах библиотеки TFT_ESPI
+/User_Setup_Select.h
+/User_Setups/Setupxxxx.h pins
+если два TFT, то пины экранов настраиваются в Settings_meteo.h,
+библиотека TFT_ESPI не используется
+если подключена SD (FTP не будет)
+для ESP8266 включить #define SUPPORT_TRANSACTIONS в /User_Setups/Setupxxxx.h
+для ESP32 SD и TFT должны подключены к VSPI pins
+как минимум в /data/config.txt //at least in /data/config.txt
+(#key,#TIMEZONE,#lat,#lon)
+
+/data/fm.txt fm
+/data/i_stat.txt www
+/data/alarm.txt планировщик //scheduler
+/data/ik.txt #define pin_ir VS1838B
+/data/wifi  //ssid;passw;
+/data/holiday.txt  //праздники в календаре
+
+если подключена SD #define pin_sd//if SD is connected #define pin_sd
+-скопировать содержимое /data/ в корневой SD //copy/data/content to root SD
+- SD/foto/1-99xxx.jpg (foto)
+- SD/mp3/1-99xxx.mp3  (mp3 play file) 
+если нет SD, загрузить папку /data в SPIFFS
+if no SD, load the/data folder into SPIFFS
+
+если в максимальной конфигурации ошибка компиляции "мало памяти":
+if the maximum configuration has a low memory compilation error:
+- IDE ---> partition scheme NO OTA 2mb app/2mb SPIFFS
+- setting_meteo.h ---> //#define ota_update
+или закомментировать не нужные экраны (S1...S6)
+
+Не забыть загрузить данные (/data/) в SPIFFS (если нет SD)
+
+- перед обновлением сохраните свой старый проект и библиотеки.
+- перенести свои настройки в файлы проекта и библиотеки.
+- Save  old project and libraries before updating.
+- Transfer  settings to project and library files.
+- список команд на управление или в serial monitor \meteo\!faq_schemes\fn_cmd.pdf 
+
+------------------------------------------------------
+
+google disk /example of the case/ примеры корпусов
+(если есть желание поделиться присылайте на мейл)
+
+
+резерв для видео
+https://zen.yandex.ru/id/6225fe4fbd067e1e03324a84
+
+ushakof@inbox.ru
+ushakof.a@yandex.ru
+
+
+======================================================
+				170422.zip
+IDE 1.8.16------ESP8266 2.5.2-------ESP32 1.04
+======================================================
+- добавил приёмник на 433Mhz, аналогичные WL101-341 WL102 -341
+#define R433 
+
+- проирывание WWW радио в фоне
+#define play_on_core0 //условие ESP32 #def lib2+#def pcm или #def vs1053 
+
+- команды "play_bg" запуск или стоп игры в фоне 
+"next_scr","prev_scr" листание экранов при игре в фоне
+
+- #define ds1820_place 0,1 // где размещён датчик (улица,дом)
+
+- fmSi4703_lib2 альтернативная библиотека FM
+
+- команды "tm;xx" xx-минуты, быстрый запуск таймера
+
+- #define pause_after_boot 10 //сек пауза после загрузки
+
+- enc_lib2 (ESP32) расширил список команд для кнопки енкодера (см. Settings_control.h)
+
+- список команд на управление или в serial monitor \meteo\!faq_schemes\fn_cmd.pdf 
+- 5key+gerber схема от Ky6AHb  meteo\!faq_schemes\schemes\component\key\5key\Ky6AHb.zip 
+	fix...
+
+
+======================================================
+				250322.zip
+IDE 1.8.16------ESP8266 2.5.2-------ESP32 1.04
+скрины экранов лежат в (see screens) \meteo\!faq_schemes\screens\.. 
+======================================================
+- Settings_meteo.h разделился на: 
+		Settings.h (+pin SD)
+		Settings_control.h (button,encoder,ir)
+		Settings_sensor.h (bme,pir,nrf,led...)
+		Settings_audio.h  
+
+- pin_btn_touch стал btn1-btn4 (команды смотреть в meteo\!faq_schemes\fn_cmd.pdf )
+
+- добавил экран информации о настройках, команда:"S_info"// added screen,  command "S_info"
+
+- можно команды применять через serial port monitor(#ifdef debug),
+paste URL (if play www),next,fav...(fn_cmd.pdf )
+- playlist i_stat.txt + i_stat(1-9)(add playlist 1-9)
+(alarm only i_stat.txt)
+- название плейлиста строка//playlist name  #pl_list_name;PINK FLOYD; (i_stat.txt,i_stat(1-9).txt)
+- logo www (32x32, 32x64  or 32x96 *.jpg)
+пример/example
+#1;rockant;http://mp3channels.webradio.rockantenne.de/heavy-metal;40;r_anten.jpg;
+
+- nrf esp32
+- если используете FTP для ESP32 версии <2.0 ,то брать библ. из архива ESP32FTPServer-master_for_ESPv1-1.99.zip
+- S6 round fix,...
+
+======================================================
+				201221_experiment.zip
+IDE 1.8.16------ESP32 1.04
+скрины экранов лежат в (see screens) \meteo\!faq_schemes\screens\.. 
+======================================================
+добавил //added  waveshare  4.2 SPI (GxEPD2_420)
+lib -->GxEPD2 https://github.com/ZinggJM/GxEPD2
+		Settings_meteo.h
+-----------------------------
+#define tft_400_300 //epd 4.2" 
++4 screens
+#define  S1epd
+#define  S2epd
+#define  S3epd
+#define  Sfepd //FOTO #if (defined) pin_sd 
+dir SD/foto_bw/(1-*999).bmp 
+
+
+
+======================================================
+				211121_test.zip
+IDE 1.8.16------ESP8266 2.5.2-------ESP32 1.02,1.04
+скрины экранов лежат в (see screens) \meteo\!faq_schemes\screens\.. 
+======================================================
+	добавил //added screens  
+- 1 экран на 320x240 S6 и tft2_S6 для 2 дисплеев
+- 1 экран на 480x320 S5 и 4 экрана для 2 дисплеев tft2_S1,tft2_S2,tft2_S3,tft2_S4
+
+-------------------------
+календарь //calendar (смотри скрины экранов и видео)
+праздники заполняются в (holidays in) /data/holiday.txt  
+формат //month;day;day;day;day;day;
+------------------------
+добавил альтернативу FTP, //FTP alternatives
+скачивание, закачивание, просмотр файлов в дир, можно работать с SD
+по адресу ESP http://192.168.xxx.xxx 
+See more at http://www.dsbird.org.uk
+--------------------------
+руссификация при проигрывании WWW, MP3
+чтобы видеть назавания каналов на рууском сохранять
+i_stat.txt в кодировке UTF-8
+-----------------------------
+разделил	#define pin_play_WWW_MP3_out_hight xx
+divided	#define pin_play_WWW_MP3_out_low  xx
+на //on
+#define pin_play_MP3_out_hight 11
+#define pin_play_WWW_out_hight 11
+#define pin_play_WWW_out_low 11
+#define pin_play_MP3_out_low 11
+-----------------------------
+добавил  на PIR //add 
+#define pin_pir_out_low
+------------------------
+https не играет на ESP32 ver <1.06, 
+если нет проблем с WIFI  и стоит версия >=1.06, то скачайте 
+последнюю версию ESP32-audioI2S-master 
+(у меня в архиве подправлена для  ESP32 1.04, чтобы не было ошибок компил-ии)
+-----------------------------
+fix AP ,#log, ....
+
+
+======================================================
+				031021_test.zip
+======================================================
+		Settings_meteo.h
+-----------------------------
++ датчик температуры и влажности AHT10 //add AHT10
+#define aht10 0x38 //address 0x38 or 0x39 
++ lcd (i2s) 1602 или 2004 esp8266,esp32 
+#define lcd_display,lcd_type,lcd_addr ...
+
+--------------config.txt
+#delta_t;0;//+- поправка температуры в комнате (bme,dht,aht) (correction of temp room)
+
+======================================================
+				180421_test.zip
+======================================================
+		Settings_meteo.h
+-----------------------------
+//смена времени по правилу (зима лето)
+//указать номер недели, день недели, месяц, время перевода часов,  количество минут UTC 
+//будет актуально если закомментировано #TIMEZONE в config.txt
+//change of time according to the rule (winter and summer)
+//specify week number, day of week, month, time of hour transfer, number of UTC minutes config.txt
+//will be relevant if commented # TIMEZONE in config.txt
+
+#define timechange_summer_winter //lib Timezone
+TimeChangeRule DST = {"DT", Second, Sun, Mar, 2, -120};    // Daylight time = UTC + 3 hours
+TimeChangeRule STD = {"ST", First, Sun, Nov, 2, -240};     // Standard time = UTC +4 hours
+//-----help,example-------->libraries\Timezone\examples\Change_TZ_2\Change_TZ_2.ino 
+
+-------------------pin_analog_key1------5кнопок-----5button--------
+rename pin_4key1 --> pin_analog_key1
+
+#define pin_analog_key1
+- добавил 5 кнопку
+в setting определить кнопки и назначить команды
+в config.txt указать мин и макс значение при нажатии 
+
+added 5 button
+in setting  define buttons and assign commands
+in config.txt write min-max value when pressed
+--------------
+отдельно настройки на таймер//separately set to timer
+#define key1btnX_XXX_timer "команда// you command"
+
+
+--------------config.txt
+#key1_test_min_max;2; //2 sec
+просмотр значений в мониторе порта раз в 2сек 
+(только для первоначальной настройки min max, потом закомментировать)
+viewing values in the port monitor once every 2sec
+(only for initial setting, then comment)
+
+
+#key1_debounce;50;// установка времени антидребезга 
+#key1_timeout;300;  // установка таймаута удержания 
+#key1_clicktimeout;500; // установка таймаута между кликами 
+#key1_steptimeout;400; // установка таймаута между инкрементами 
+у меня такие на 5 кнопок с ali, у вас могут отличаться
+i have these on 5 buttons with ali, you may have different
+#key1btn1_min;0;
+#key1btn1_max;15;
+#key1btn2_min;16;
+#key1btn2_max;100;
+#key1btn3_min;150;
+#key1btn3_max;300;
+#key1btn4_min;400;
+#key1btn4_max;700;
+#key1btn5_min;1000;
+#key1btn5_max;1500;
+//-----help,example-------->libraries\GyverButton\-------------
+
+
+fix play mp3 "next" audio_lib2
+
+
+======================================================
+				280321_test.zip
+======================================================
+ide 1.8.11  
+ESP8266-2.5.2
+ESP32-1.0.2
+в более поздних версиях ESP проблема с медленным wifi (может только у меня?)
+in later versions of ESP, a problem with slow wifi
+
+-----------VS1053---ESP32
+#define vs1053
+#define SPI_MOSI      23
+#define SPI_MISO      19
+#define SPI_SCK       18
+#define VS1053_CS     xx//xcs
+#define VS1053_DCS    xx//xdcs
+#define VS1053_DREQ   xx
+//xreset------>EN
+нет сигналов таймера и часов если нет SD
+no timer and clock signals if no SD
+
+-----------encoder_lib2
+альтернативная библиотека для енкодера (только для ESP32)
+(нет регулировки звука и яркости от енкодера)
+#define  encoder_lib2 
+
+======================================================
+				050321_test.zip
+======================================================
+ide 1.8.11  
+ESP8266-2.5.2
+ESP32-1.0.2
+в более поздних версиях ESP проблема с медленным wifi (может только у меня?)
+in later versions of ESP, a problem with slow wifi
+---------------------TIMER---------------------------------
+добавил таймер // add timer
+	IR
+запуск, выход с ик пульта "fav" в ik.txt 
+launch from the IR rc "fav" in ik.txt (start,exit)
+	encoder 
+указать команду "timer" в #define enc_onclick_noplay или #define enc_ondblclick_noplay 
+specify "timer" command in #define enc_onclick_noplay or #define enc_ondblclick_noplay
+	4key
+указать команду "timer" в #define key1btnX_Xnoplay
+specify "timer" command in #define key1btnX_Xnoplay
+
+настройка buzzer in setting:
+const unsigned int fr_alarm = 900; //частота,frequency TIMER (beep_pass)
+const unsigned int dur_alarm = 70; //длит,duration     TIMER
+
+config.txt
+tm_alarm_count_beep	//количество
+tm_alarm_period_beep	// время между сигналами //time between signals
+//mp3 play /timer.beep (ESP32)
+tm_alarm_count	//количество
+tm_alarm_period	// время между сигналами //time between signals
+
+
+--------------PIN-OUT-------------------
+было//was
+pin_playWWW_out_hight; pin_playMP3_out_hight
+стало //became
+pin_play_WWW_MP3_out_hight или/or pin_play_WWW_MP3_out_low
+
+	добавил,add PIN-OUT-CONTROL
+pin_playXXX_out_low  (LOW)
+если ночные часы // if night hours
+#define pin_night_out_XXX //hight or low
+если заход солнца // if sunset
+#define pin_sunset_out_XXX //hight or low
+
+	4key #define pin_4key1 
+добавил  hold//add hold
+
+если раскомментировать audio_lib2, то без PCM также задействуется 
+if you uncomment audio_lib2, then without PCM it is also involved
+======================================================
+				100221_test.zip
+======================================================
+ide 1.8.11  
+ESP8266-2.5.2
+ESP32-1.0.2
+в более поздних версиях ESP проблема с медленным wifi
+in later versions of ESP, a problem with slow wifi
+------------------------------------------------------
+\meteo\!faq\schemes\component\4key\
+#define pin_4key1 //4 кнопки на один gpio esp32/4 buttons per gpio esp32
+
+//если раскомментировать будет ESP32-audioI2S вместо ESP8266Audio (для DAC PCM5102,MAX98357A) 
+//if the uncomment is ESP32-audioI2S instead of ESP8266Audio (for DAC PCM5102,MAX98357A)
+#define PCM5102
+#define audio_lib2 
+
+- добавил FTP для ESP32 видит только корень SD/added FTP ESP32 only sees SD root
+- fix PCM5102 + bme280
+- fix #define pin_btn_touch 
+
+======================================================
+
+======================================================
+				170121_test.zip
+ide 1.8.11  
+ESP8266-2.5.2
+ESP32-1.0.2
+в более поздних версиях ESP проблема с медленным wifi
+in later versions of ESP, a problem with slow wifi
+======================================================
+add MP3 player
+обязательные условия:
+ESP32+sd (in Settings_meteo.h #define pin_sd)
+каталог и файлы(1-9999) на SD /mp3/1.mp3,2.mp3-xxxxx.mp3
+если есть приёмник IR заполнить /data/ik.txt #play_mp3;xxxxcodexxxxx;
+кнопка "fav" вкл откл сортировку on-off random play mp3
+encoder dblclick on-off random play mp3
+-----------------------------
+/data/config.txt 
+#mp3_random;;// mp3 play sort random
+#play_mp3_vol;35;// mp3 player volume default(1-100)
+#play_vol;35;// WWW player volume default(1-100)
+#play_fm_vol;15;// FM volume default (1-15)
+-----------------------------
+fix beep ESP32,...
+======================================================
+				061220_test.zip
+======================================================
+Settings_meteo.h
+----------------------
+FM Si4703 (3 pin SDA SCL RESET)
+#define fmSi4703
+FM RDA5807 (2 pin SDA SCL)
+#define fmRDA5807
+/data/fm.txt
+----------------------
+#define mqtt  //in config.txt #mqtt_... 
+----------------------
+encoder
+#define encoder_int //использовать прерывание, если не работает encoder//use interrupt, if not working encoder
+//настроить свою команду на click или  dblclick (если не играет)
+//set your command to click or dblclick (if not playing)
+#define enc_onclick_noplay "next"//next, prev, play, play_fm, play_mp3
+#define enc_ondblclick_noplay "play_fm"//next, prev, play, play_fm, play_mp3
+----------------------
+//если есть #define pin_btn_No_touch одиночный клик (без удержания)
+//if there is #define pin_btn_No_touch, single click (no hold)
+#define pin_btn_onclick_noplay "play_fm"//next, prev, play, play_fm, play_mp3
+#define pin_btn_onclick_onplay "stop"//if play WWW---> stop next prev fav //vaf избранные/favor..
+#define pin_btn_onclick_onplay_fm "fav"//if play FM---> stop next prev fav //vaf избранные/favor..
+----------------------
++3v  на pin=xxx при проигрывании//+ 3v to pin = xxx when playing
+//#define pin_playWWW_out_hight 11
+//#define pin_playFM_out_hight 12
+//#define pin_playMP3_out_hight 13
+//#define pin_playALL_out_hight 14
+----------------------
+#define c_www  //цвет линий на экране WWW проигр/line color on WWW screen play
+#define c_fm  //цвет линий на экране FM/line color on FM screen
+----------------------
+
+/data/ik.txt 
+#fav добавил кнопку: favorite,play_fm //added a button: favorite,play_fm
+#id игнорирую которые не совпадают//ignoring which do not match
+----------------------
+/data/config.txt
+//постоянный контроль наличия wifi, если пропал переподкл. через сек.
+// permanent control of wifi availability if reconnection is lost. in sec.
+#wifi_force_connect;40;		//40sec 
+
+----------------------
+alarm.txt #i-www,#f-fm 
+(#I,#F запуск в том числе при ночном экране/start including at night screen)
+
+
+============150420_test_fix1.zip================
+ошибка компиляции при //#define  Sg  
+============150420_test.zip=====================
+- add screen S4 (#define tft_480_320+#define  S4 ) //mix S4=S3+Sg 
+добавил отражение ясных дней в графики /01d
+added a reflection of clear days in the charts /01d
+			Settings_meteo.h
+----------color-------
+#define c_monday TFT_CYAN //цвет понедельника //color of the monday
+#define c_friday TFT_MAGENTA //цвет пятницы //color of the friday
+
+
+---------TFT Led-----------
+#define pin_led   //управление подсветкой, настройки в config.txt//Backlight control, config.txt settings
+#define pin_pir   //включение  подсветки при движении  (PIR)  на время=t_pir_period из config.txt
+                  //turning on the backlight when driving (PIR) time=t_per_period of config.txt
+#define pin_pir_out_hight    //после движения держит высокий уровень на пине время=t_pir_period из config.txt
+			   	    //after the movement keeps the high level on the pin time=t_per_period of config.txt
+
+
+
+#define ref_sensor_on_play    
+//в режиме радио будут обновляться локальные и #def wf_read данные от bme bmp si dht ds, могут быть заикания(
+//In radio mode local data from bme bmp si dht ds will be updated (and #def wf_read), there may be stutters (
+//если закомментировать #define, то обновяться только при смене канала
+//If you comment #define, update only when changing the channel
+
+
+			config.txt
+------------TFT Led ----------------
+#led_def;100; // яркость TFT 0-100,TFT brightness 0-100
+#led_night;30; // яркость ночью ,brightness at night
+#led_sunset;70; // яркость после захода ,after sunset
+
+#t_led_off;300; // отключаю дисплей, если не было движения секунд=
+		    //disable the display if there was no movement seconds
+
+
+============030320_test.zip=====================
+обновление проекта под два дисплея//updating the project for two displays
+ESP32+ 2 tft ili9341 320x240 (adafruit lib)
+in Settings_meteo.h
+===================
+#define tft_320_240
+#define  two_tft
+#define tft2_Sg // какой экран, только tft2_Sg,tft2_S3 или  tft2_S4//what screen, only tft2_Sg,tft2_S3 or tft2_S4
+-------------------
+#define Sf_show_date//показывать дату на фото  /Show date in photos
+
+rename  #define radio -----> #define only_radio
+============020220_test.zip=====================
+in Settings_meteo.h
+--------------------
+1
+#define radio  //только  интернет радио+датчики, один экран радио
+/only Internet radio, one screen radio+sensors
+2
+#define  Sg //добавил экран графики погоды /
+Added a weather graphics screen   Sg.jpg 
+3
+rotation=1; //1,3 (3-SD сверху/SD top TFT)
+4
+#define encoder //см. в setting.
+
+5
+#define pin_dht D1   //DHT temp,h room -->DHT11 или DHT22 или DHT21
+			   //НЕ ТЕСТИРОВАЛ
+//#define DHTTYPE DHT11   // DHT 11
+#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
+//#define DHTTYPE DHT21   // DHT 21 (AM2301)             
+
+
+
+
+============151219_test.zip=====================
+-ESP8266 для SD в /User_Setups/Setupxxxx.h раскомм-ть
+#define SUPPORT_TRANSACTIONS
+- ESP32 SD и TFT должны подключены к VSPI
+
+Settings_meteo.h
+#define pin_sd
+
+config.txt
+#Sf_show;10; //длительность показа экрана, если включено xx_show>1 
+#Sf_t_slide;10; длительность показа фото
+
+-ik.txt кнопке "0" к остановке показа песни, если режим play,
+добавил стоп экраны по кругу, если включено в config.txt
+
+//--------iot read------------------
+#iot_id_read;12345567;
+#iot_key_read;JNASCSACASCSDCVDS;
+#iot_period_read;25;
+#iot_T_fld_read;1; темп кв
+#iot_H_fld_read;2; влажность кв
+#iot_T2_fld_read;3; темп улица
+#iot_P_fld_read;4;  давление
+
+
+============241119_test.zip=====================
+Settings_meteo.h
+-если ESP32 c параллельным  интерфейсом  и периодически сбиваются часы, раскомментировать
+If the parallel interface ESP32 and the clock are periodically lost, uncomment
+#define  time_correct 
+
+#define pin_btn_No_touch   PULL_UP кнопка на землю/grounding button GPIOs 34 to 39 don’t have internal pull-ups or pull-down resistors
+или or
+#define pin_btn_touch только ESP32/ only ESP32
+
+
+#define c_month 0xB596  //цвет месяца в дате/month color in date
+#define c_pr_ow  0x07E0 //цвет давления с opeW / Pressure colour with opeW
+#define c_pr_bme 0x8FF8 //цвет давления с BME / Pressure color with BME
+
+
+- alarm.txt (t begin(hour);t end(h))
+период работы канала/period of operation of the channel
+
+- S2,S3 tft 480-320
+
+============301019_test.zip=====================
+- перевод на TFT_ESPI для совместимости проектов
+- parser исправлен с учетом timezone
+- добавлен parser текущего запроса / add parser now
+-#log;; (//#log;;) config.txt запись лога за 2 дня (ntp,parse,датчики)/Log entry in 2 days (ntp, parse, sensors)
+-#define IoT   в Settings_meteo, передача данных (Ткв Тул Нкв P ск ветра,осадки)
+настраивается в config.txt (номер канала,ключ интервал, что передавать) 
+#Define IoT in Settings_meteo, data transmission (T1 T2 H P wind,rain mm)
+Is configured in config.txt (channel number, key interval, what to transmit)
+---------------------------------------------
+
+- экраны по кругу настройка в config.txt
+#S1_show;60;#S2_show;60;#S3_show;60;
+(screens around control in config.txt)
+- PCM1501 DAC смотри в Settings_meteo.h
+#define PCM1501
+
+- обновление через http (update http:/your ip/update)
+#define http_update 
+
+- esp32 планировщик, заполнить data/alarm.txt по шаблону (esp32 the scheduler to fill /data/alarm.txt on a template)
+- esp32 web radio (заполнить i_stat.txt по шаблону)
+- esp32 beep.mp3 сигнал каждый час, искл. ночь и ночной экран
+(signal each hour, exception night and night screen)
+config.txt 
+
+
+28.06.19--------------------------------------------------
+- добавил экран S5 с настройками цвета
+added the S5 screen with color settings 
+Settings_meteo.h  (S5.jpg)
+#define S5
+
+- мелкие исправления / small corrections

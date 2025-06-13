@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding ="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup Label="Globals" >
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{179e3ccb-1351-4ac9-b769-3da318a98e89}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\BME280.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\BME280I2C.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\BME280I2C_BRZO.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\BME280Spi.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\BME280SpiSw.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\EnvironmentCalculations.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)src\BME280.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\BME280I2C.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\BME280I2C_BRZO.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\BME280Spi.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\BME280SpiSw.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\EnvironmentCalculations.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="$(MSBuildThisFileDirectory)keywords.txt" />
+<Text Include="$(MSBuildThisFileDirectory)library.properties" />
+<Text Include="$(MSBuildThisFileDirectory)vs-readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" />
+  </ItemGroup>
+</Project>

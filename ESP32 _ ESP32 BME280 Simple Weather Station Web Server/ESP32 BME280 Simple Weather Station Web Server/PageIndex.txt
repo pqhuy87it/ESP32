@@ -1,0 +1,218 @@
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "PageIndex" HTML code for "03_ESP32_Simple_Weather_Station_With_BME280_Web_Server_SM".
+const char MAIN_page[] PROGMEM = R"=====(
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP32 Weather Station With BME280</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+      html {font-family: Helvetica, sans-serif; display: inline-block; text-align: center;}
+      body {margin: 0;}
+      h1 {margin: 10px auto 10px; font-size: 1.5rem;}
+      .content {padding: 5px;}
+      .card {background-color: white; box-shadow: 0px 0px 5px 1px rgba(140,140,140,.5); border-radius: 15px;}
+      .card_header {border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-right-radius: 12px; border-top-left-radius: 12px;}
+      .cards {max-width: 700px; margin: 0 auto; display: grid; grid-gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));}
+    </style>
+  </head>
+  
+  <body>
+    <div style="overflow: hidden; background-color: #00878F; color: white;">
+      <h1>ESP32 Weather Station With BME280</h1>
+    </div>
+    
+    <br>
+    
+    <div class="content">
+      <div class="cards">
+        <!-- ============================================================ Displays the temperature value.  -->
+        <div class="card" style="border: 1px solid #E8A138; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #E8A138; background-color: #E8A138;">
+            <h3 style="font-size: 12px; color: white">Temperature</h3>
+          </div>
+          <p style="font-size: 20px; color: #E8A138;"><i class="material-symbols-outlined" style="vertical-align: middle; font-size: 30px; color: #E8A138; margin: -12px auto -12px;">thermostat</i>&nbsp;<span style="vertical-align: middle;" id="show_Temp">NN</span><span style="vertical-align: middle;">&nbsp;&deg;C</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+        
+        <!-- ============================================================ Displays the humidity value.     -->
+        <div class="card" style="border: 1px solid #4399D3; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #4399D3; background-color: #4399D3;">
+            <h3 style="font-size: 12px; color: white">Humidity</h3>
+          </div>
+          <p style="font-size: 20px; color: #4399D3;"><i class="material-symbols-outlined" style="vertical-align: middle; font-size: 30px; color: #4399D3; margin: -12px auto -12px;">humidity_percentage</i>&nbsp;<span style="vertical-align: middle;" id="show_Humd">NN</span><span style="vertical-align: middle;">&nbsp;%</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+        
+        <!-- ============================================================ Displays the pressure value.     -->
+        <div class="card" style="border: 1px solid #8B8000; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #8B8000; background-color: #8B8000;">
+            <h3 style="font-size: 12px; color: white">Pressure</h3>
+          </div>
+          <p style="font-size: 20px; color: #8B8000;"><i class="material-symbols-outlined" style="vertical-align: middle; font-size: 30px; color: #8B8000; margin: -12px auto -12px;">swap_driving_apps_wheel</i>&nbsp;<span style="vertical-align: middle;" id="show_Pres">NN</span><span style="vertical-align: middle;">&nbsp;hPa</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+        
+        <!-- ============================================================ Displays the altitude value.     -->
+        <div class="card" style="border: 1px solid #9B5FAA; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #9B5FAA; background-color: #9B5FAA;">
+            <h3 style="font-size: 12px; color: white">Altitude</h3>
+          </div>
+          <p style="font-size: 20px; color: #9B5FAA;"><i class="material-symbols-outlined" style="vertical-align: middle; font-size: 30px; color: #9B5FAA; margin: -12px auto -12px;">altitude</i>&nbsp;<span style="vertical-align: middle;" id="show_Altd">NN</span><span style="vertical-align: middle;">&nbsp;m</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+      </div>
+    </div>
+    
+    <br>
+    
+    <a href="https://www.youtube.com/@utehstr" target="_blank" style="font-size: 15px; color:#FF0000;"><i class="material-symbols-outlined" style="vertical-align: middle; font-size: 25px; color: #FF0000; margin: -12px auto -12px;">play_circle</i>youtube.com/@utehstr</a>
+    
+    <script>
+      //------------------------------------------------------------Processes the data received from the ESP32.
+      if (!!window.EventSource) {
+        var source = new EventSource('/events');
+        
+        source.addEventListener('open', function(e) {
+          console.log("Events Connected");
+        }, false);
+        
+        source.addEventListener('error', function(e) {
+          if (e.target.readyState != EventSource.OPEN) {
+            console.log("Events Disconnected");
+          }
+        }, false);
+        
+        source.addEventListener('message', function(e) {
+          console.log("message", e.data);
+        }, false);
+
+        source.addEventListener('allDataJSON', function(e) {
+          console.log("allDataJSON", e.data);
+          
+          var obj = JSON.parse(e.data);
+          
+          document.getElementById("show_Temp").innerHTML = obj.temp_Val.toFixed(2);       
+          document.getElementById("show_Humd").innerHTML = obj.humd_Val.toFixed(2);
+          document.getElementById("show_Pres").innerHTML = obj.pres_Val.toFixed(2);     
+          document.getElementById("show_Altd").innerHTML = obj.altd_Val.toFixed(2);
+        }, false);
+      }
+      //------------------------------------------------------------
+    </script>
+  </body>
+</html>
+)=====";
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "PageIndex" HTML code for "04_ESP32_Simple_Weather_Station_With_BME280_Web_Server_APM".
+const char MAIN_page[] PROGMEM = R"=====(
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP32 Weather Station With BME280</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+      html {font-family: Helvetica, sans-serif; display: inline-block; text-align: center;}
+      body {margin: 0;}
+      h1 {margin: 10px auto 10px; font-size: 1.5rem;}
+      .content {padding: 5px;}
+      .card {background-color: white; box-shadow: 0px 0px 5px 1px rgba(140,140,140,.5); border-radius: 15px;}
+      .card_header {border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-right-radius: 12px; border-top-left-radius: 12px;}
+      .cards {max-width: 700px; margin: 0 auto; display: grid; grid-gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));}
+    </style>
+  </head>
+  
+  <body>
+    <div style="overflow: hidden; background-color: #00878F; color: white;">
+      <h1>ESP32 Weather Station With BME280</h1>
+    </div>
+    
+    <br>
+    
+    <div class="content">
+      <div class="cards">
+        <!-- ============================================================ Displays the temperature value.  -->
+        <div class="card" style="border: 1px solid #E8A138; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #E8A138; background-color: #E8A138;">
+            <h3 style="font-size: 12px; color: white">Temperature</h3>
+          </div>
+          <p style="font-size: 20px; color: #E8A138;"><span style="vertical-align: middle;" id="show_Temp">NN</span><span style="vertical-align: middle;">&nbsp;&deg;C</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+        
+        <!-- ============================================================ Displays the humidity value.     -->
+        <div class="card" style="border: 1px solid #4399D3; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #4399D3; background-color: #4399D3;">
+            <h3 style="font-size: 12px; color: white">Humidity</h3>
+          </div>
+          <p style="font-size: 20px; color: #4399D3;"><span style="vertical-align: middle;" id="show_Humd">NN</span><span style="vertical-align: middle;">&nbsp;%</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+        
+        <!-- ============================================================ Displays the pressure value.     -->
+        <div class="card" style="border: 1px solid #8B8000; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #8B8000; background-color: #8B8000;">
+            <h3 style="font-size: 12px; color: white">Pressure</h3>
+          </div>
+          <p style="font-size: 20px; color: #8B8000;"><span style="vertical-align: middle;" id="show_Pres">NN</span><span style="vertical-align: middle;">&nbsp;hPa</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+        
+        <!-- ============================================================ Displays the altitude value.     -->
+        <div class="card" style="border: 1px solid #9B5FAA; line-height: 20%; height: 70px;">
+          <div class="card_header" style="border: 1px solid #9B5FAA; background-color: #9B5FAA;">
+            <h3 style="font-size: 12px; color: white">Altitude</h3>
+          </div>
+          <p style="font-size: 20px; color: #9B5FAA;"><span style="vertical-align: middle;" id="show_Altd">NN</span><span style="vertical-align: middle;">&nbsp;m</span></p>
+        </div>
+        <!-- ============================================================================================= -->
+      </div>
+    </div>
+    
+    <br>
+    
+    <a href="https://www.youtube.com/@utehstr" target="_blank" style="font-size: 15px; color:#FF0000;">youtube.com/@utehstr</a>
+    
+    <script>
+      //------------------------------------------------------------Processes the data received from the ESP32.
+      if (!!window.EventSource) {
+        var source = new EventSource('/events');
+        
+        source.addEventListener('open', function(e) {
+          console.log("Events Connected");
+        }, false);
+        
+        source.addEventListener('error', function(e) {
+          if (e.target.readyState != EventSource.OPEN) {
+            console.log("Events Disconnected");
+          }
+        }, false);
+        
+        source.addEventListener('message', function(e) {
+          console.log("message", e.data);
+        }, false);
+
+        source.addEventListener('allDataJSON', function(e) {
+          console.log("allDataJSON", e.data);
+          
+          var obj = JSON.parse(e.data);
+          
+          document.getElementById("show_Temp").innerHTML = obj.temp_Val.toFixed(2);       
+          document.getElementById("show_Humd").innerHTML = obj.humd_Val.toFixed(2);
+          document.getElementById("show_Pres").innerHTML = obj.pres_Val.toFixed(2);     
+          document.getElementById("show_Altd").innerHTML = obj.altd_Val.toFixed(2);
+        }, false);
+      }
+      //------------------------------------------------------------
+    </script>
+  </body>
+</html>
+)=====";
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

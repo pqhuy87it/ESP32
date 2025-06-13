@@ -1,0 +1,26 @@
+//сохранять в UTF-8 если есть названия на "великом и могучем"
+//#номер по порядку;название(14 символов);ссылка;;volume(1-100,;,)def=50%;icon(32x32, 32x64  or 32x96);
+#pl_list_name;Italy-France;
+#1;Italy;http://ice07.fluidstream.net/giulia.mp3;
+#2;Rock Soul fr;http://streaming.radionomy.com/JamendoLounge;
+#3;italiaonair;http://prmstrm.1.fm:8000/italiaonair;
+#4;Italiana- Best;http://94.23.66.155:9200/stream/1/;
+#5;CLASSIC 70 80 90;http://classichitsradio.streamingmedia.it:8017/play;
+#6;Maxi 80 France;http://5.135.188.130:8000/stream/1/;
+#7;MAXI FRANCE;http://sr3.publicssl.net:8358/stream2;
+#9;LA MUSICA DEL SUD;http://91.134.147.168:9848/stream/1/;
+#10;PulsRadio 90;http://sc1.gergosnet.com/puls90HD.mp3;
+#11;Chante France;http://chantefrance.ice.infomaniak.ch/chantefrance-128.mp3;
+#12;ABC Lounge;https://eu1.fastcast4u.com/proxy/kpmxz?mp=/1;
+#13;Skyrock Fr;http://icecast.skyrock.net/s/natio_aac_64k;
+#14;allzic21;https://allzic21.ice.infomaniak.ch/allzic21.mp3;
+#15;France-med;http://str4.pcradio.ru/France-med;
+#16;Nostalgie Chansons;http://185.52.127.131/fr/30611/mp3_128.mp3?origine=radiobox&adws_out_a1&access_token=4862f0e7297b4439b56be26abba85853;
+
+
+//избранные каналы двойной клик/favorite channels Double Click
+{1;5;11;16;}
+//end
+//#define fav_count 4 in setting..
+
+

@@ -1,0 +1,23 @@
+//сохранять в UTF-8 если есть названия на "великом и могучем"
+//#номер по порядку;название(14 символов);ссылка;;volume(1-100,;,)def=50%;icon(32x32, 32x64  or 32x96);
+#pl_list_name;OLD SCHOOL+ROCK;
+
+#1;ROCK RADIO SI;http://212.30.80.195:9034/rock;;
+#2;rockclassics;http://prmstrm.1.fm:8000/rockclassics;
+#3;rock80;http://jfm1.hostingradio.ru:14536/rock80.mp3;
+#4;rock90;http://jfm1.hostingradio.ru:14536/rock90.mp3;
+#5;rock00;http://jfm1.hostingradio.ru:14536/rock00.mp3;
+#6;rautemusik;http://rautemusik-de-hz-fal-stream13.radiohost.de/goldies;
+#7;raute Rock;http://rautemusik-de-hz-fal-stream15.radiohost.de/rock;
+#8;crock;http://strm112.1.fm/crock_mobile_mp3;
+
+//избранные каналы двойной клик/favorite channels Double Click
+{3;4;5;8;}
+//end
+//#define fav_count 4 in setting..
+
+
+
+
+
+

@@ -1,0 +1,141 @@
+// if #define ftp можно заменять файл по FTP//you can replace the file by FTP
+//user=esp8266/passw=esp8266  
+// или http://ESP-IP/
+//предупреждения на экран (prevention on the screen)
+
+#key;    //key openW
+#p_min;722; //давление упало <мин (prevention min. pressure)
+#p_max;755;// давление выше> макс (prevention max. pressure)
+#v_max;7;	//скорость ветра>=   (prevention wind speed) 
+#TIMEZONE;1;
+#lat;41.1231;
+#lon;20.8016;
+#t_max;29;// темпер макс (temperature>max)
+#t_min;-12;	//темпер мин  (temperature<min)
+#uv_max;7;	// ультрофиолет >макс (Ultra-violet radiation>)
+#delta_p;0;// +- поправка давления openW (correction of pressure sensor)
+#delta_t;0;//+- поправка температуры в комнате (bme,dht,aht) (correction of temp room)
+#beep_b;10;	// сигнал начало, кажд час, (buzzer signal start every hour)
+#beep_e;22;// сигнал конец (signal buzzer stop)
+#beep_mp3_vol;90;// beep.mp3 file esp32 сигнал каждый час (signal each hour)
+#t_b;2; 	// ночные часы начало (night screen start)	
+#t_e;7;	// ноч. конец (night screen stop)
+#scr_name_def;S1; //экран по умолчанию (screen after loading)
+//#esp_restart;14; //если надо перегружать esp каждый день (esp restart-hour)
+
+//экраны по кругу / screens around
+//#S1_show;60;//если надо менять экраны по времени 
+//#S2_show;25;
+//#S3_show;35;//if it is necessary to change screens on time sec
+//#S4_show;15;
+//#S5_show;55;
+//#S6_show;15; //график graph
+//#Sg_show;15; //график graph
+//#Sf_show;15; //foto 
+//#S0_show;40; //no openW, актуально если есть SD
+
+//сколько sec показывать фото
+#Sf_t_slide;5; //sec slide foto, if pin_sd card SD/foto/
+
+//TIMER
+//beep ifdef pin_beep
+#tm_alarm_count_beep;30;
+#tm_alarm_period_beep;10;  //sec,  time between signals
+
+//mp3 file play /timer.mp3 (ESP32)
+#tm_alarm_count;5; //
+#tm_alarm_period;10;//sec,  time between signals
+
+
+#mp3_random;;// mp3 play sort random
+//% громкость  в по умолчанию если не указана в (stat,fm).txt/default volume if not specified in ((stat,fm)).txt
+#play_mp3_vol;25;// mp3 player volume default(1-100)
+#play_vol;25;// WWW player volume default(1-100)
+#play_fm_vol;15;// FM volume default (1-15)
+
+
+//#log;;       //save log SPIFFS,SD (#ifdef debug in setting)
+
+//-----------IoT  SEND  https://www.thingspeak.com
+#iot_id;xxxxxxx;//Channel ID
+#iot_key;W8Y9RIXxxxxxxx;
+#iot_period_send;300;	//period send sec >=20s
+#iot_T_fld_send;1;	//temp квартира(room);ном поля(num field) bme bmp280 HTU21D SI7021
+#iot_H_fld_send;2;	//humidity квартира(room) bme280 HTU21D SI7021
+#iot_T2_fld_send;3;	//temp улица(street)ds1820
+#iot_P_fld_send;4; //давление(pressure)   bme bmp280 or openw
+#iot_W_fld_send;5; //скорость ветра (wind speed) openw
+#iot_R_fld_send;6; //дождь мм(rain) openw
+
+//--------iot read------------------
+#iot_id_read;xxxxxx;
+#iot_key_read;JN0B0FSEXxxxxxxx;
+#iot_period_read;25;
+#iot_T_fld_read;1;
+#iot_H_fld_read;2;
+#iot_T2_fld_read;3;
+#iot_P_fld_read;4;
+
+
+//-------------TFT Led ----pin_led--------------
+#led_def;100; // яркость TFT 0-100,TFT brightness 0-100
+#led_night;20; // яркость ночью ,brightness at night
+#led_sunset;50; // яркость после захода ,after sunset
+
+//------------- Led OFF----pin_pir--------------
+#t_pir_period;300; // отключаю дисплей, если не было движения секунд=
+		    //disable the display if there was no movement seconds
+
+//-------------#ifdef mqtt in setting--------
+#mqtt_esp_name;meteo;		//client name
+#mqtt_server;192.168.100.100;	//mqtt server
+#mqtt_port=1883;			//port
+#mqtt_user;mqtt;
+#mqtt_password;mqtt;
+#t_reconn_mqtt;10;			//on err connect,reconnect sec			  
+#mqtt_period_send = 20;		//period send sec
+
+
+//SEND
+#mqtt_H_topic_send;home/zal/Hum; 	//влажность humidity bme280
+#mqtt_T_topic_send;home/zal/Temp;	//Temp bme280
+#mqtt_T2_topic_send;out/Temp;		//Temp ds1820b outside
+#mqtt_P_topic_send;home/zal/Pr;	//pressure bme280
+//READ
+//#mqtt_H_topic_read;"";		//влажность humidity bme280
+//#mqtt_T_topic_read;"";		//Temp bme280
+//#mqtt_T2_topic_read;"";		//Temp ds1820b
+//#mqtt_P_topic_read;"";		//pressure bme280 bmp
+
+//постоянный контроль наличия wifi, если пропал переподкл. через сек.
+#wifi_force_connect;40;		//40sec 
+
+
+//------if pin_analog_key1 
+
+#key1_debounce;50;// установка времени антидребезга 
+#key1_timeout;300;  // установка таймаута удержания 
+#key1_clicktimeout;500; // установка таймаута между кликами 
+#key1_steptimeout;400; // установка таймаута между инкрементами 
+
+//--------4---key-----------
+//#key1btn1_min;1000;
+//#key1btn1_max;1500;
+//#key1btn2_min;2000;
+//#key1btn2_max;2500;
+//#key1btn3_min;2800;
+//#key1btn3_max;3100;
+//#key1btn4_min;4000;
+//#key1btn4_max;4100;
+
+//--------5--key------------
+#key1btn1_min;0;
+#key1btn1_max;15;
+#key1btn2_min;16;
+#key1btn2_max;100;
+#key1btn3_min;150;
+#key1btn3_max;300;
+#key1btn4_min;400;
+#key1btn4_max;700;
+#key1btn5_min;1000;
+#key1btn5_max;1500;

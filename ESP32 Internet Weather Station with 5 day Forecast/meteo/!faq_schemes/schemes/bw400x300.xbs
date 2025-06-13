@@ -1,0 +1,5 @@
+resize( 1 lanczos 400 300 0 1 0 )
+grey( 0 16 )
+settings( 1 0 0 0 0 0 0 )
+output_path( T:\1 )
+output( bmp 0 )

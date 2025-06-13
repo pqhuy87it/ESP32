@@ -1,0 +1,28 @@
+//#номер по порядку/num;название/name(10символов);частота/freq( 760-1080  ex. 98.4=984;102.4=1024) ;volume(1-15);
+#1;Minsk;924;15;
+#2;umor;937;5;
+#3;legend FM;941;;
+#4;melod veka;962;;
+#5;Minsk volna;974;;
+//#6;avto;980;;
+//#7;novoe;984;;
+#8;russ;989;;
+#9;unistar;995;;
+#10;energy;1004;;
+#11;pilot;1012;;
+#12;centr;1017;;
+#13;rocks;1021;;
+#14;narodnoe;1025;;
+//#15;kult;1029;;
+#16;radius;1037;;
+#17;bi-ai;1046;;
+#18;stolica;1051;;
+#19;dushevnoe;1057;;
+#20;1 nac;1062;;
+#21;mir;1071;;
+//#22;alfa;1079;;
+
+//избранные каналы двойной клик/favorite channels Double Click
+{9;3;12;16;}
+//end
+//#define fav_count 4 in setting..

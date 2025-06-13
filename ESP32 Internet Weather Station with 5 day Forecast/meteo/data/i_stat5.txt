@@ -1,0 +1,11 @@
+//сохранять в UTF-8 если есть названия на "великом и могучем"
+//#номер по порядку;название(14 символов);ссылка;;volume(1-100,;,)def=50%;icon(32x32, 32x64  or 32x96);
+#pl_list_name;PINK FLOYD;
+#1;pink uk ;http://87.117.193.5:8030/;;pink.jpg;
+#2;Roger Waters;http://icy.unitedradio.it/VirginRogerWaters.mp3;
+#3;Pink_pc;http://146.71.124.10:8150/stream?type=http&nocache=1906077;
+#4;PinkF Laute;http://laute.stream.laut.fm/laute?;
+//избранные 
+{1;2;3;4;}
+//end
+//#define fav_count 4 in setting..
