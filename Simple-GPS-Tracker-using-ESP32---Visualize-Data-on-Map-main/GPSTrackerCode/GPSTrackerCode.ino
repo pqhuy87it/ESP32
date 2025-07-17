@@ -20,16 +20,17 @@
 
 #include <WiFi.h>
 #include <HTTPClient.h>
+// #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 #include <vector>  // Include vector library for storing offline GPS data
 
 // WiFi credentials
-const char* ssid = "xxxx";      // WiFi SSID - Replace your own
-const char* password = "xxxx";  // WiFi Password - Replace your own
+const char* ssid = "MyHouse_2.4G";      // WiFi SSID - Replace your own
+const char* password = "Nh@cuatoi303";  // WiFi Password - Replace your own
 
 // Server details for sending GPS data
 const char* serverUrl = "https://www.circuitdigest.cloud/geolinker";  // Server URL
-const char* apiKey = "xxxxxxxxxxxx";                                  //12 character API key for authentication
+const char* apiKey = "2i0OZa33t913";                                  //12 character API key for authentication
 
 // GPS module connection using UART1
 HardwareSerial gpsSerial(1);
@@ -47,10 +48,12 @@ struct GPSRawData {
   int hours, minutes, seconds;
   int day, month, year;
   String timestamp;  // Combined timestamp with date and time
+  String deviceId;
 };
 
 // Structure to store simplified GPS data for transmission
 struct GPSData {
+  String deviceId;
   double latitude;
   double longitude;
   String timestamp;
@@ -159,15 +162,10 @@ bool sendGPSData(GPSData data) {
 
   // Create JSON payload for GPS data
   String payload = R"({
-    "timestamp": [
-      ")" + String(data.timestamp)
-                   + R"("],
-    "lat": [
-      )" + String(data.latitude, 6)
-                   + R"(],
-    "long": [
-      )" + String(data.longitude, 6)
-                   + R"(]
+    "device_id": ")" + String(data.deviceId) + R"(",
+    "timestamp": [")" + String(data.timestamp) + R"("],
+    "lat": [)" + String(data.latitude, 6) + R"(],
+    "long": [)" + String(data.longitude, 6) + R"(]
   })";
 
   int httpResponseCode = http.POST(payload);  // Send data via HTTP POST request
@@ -206,11 +204,13 @@ void parseGPGGA(String gpgga) {
   // Extract meaningful GPS data
   if (tokenIndex > 1) {
     String utcTime = tokens[1];
+    latestGPSRawData.deviceId = "GPS_TRACKER_001";
     latestGPSRawData.hours = utcTime.substring(0, 2).toInt();
     latestGPSRawData.minutes = utcTime.substring(2, 4).toInt();
     latestGPSRawData.seconds = utcTime.substring(4, 6).toInt();
 
     latestGPSRawData.latitude = nmeaToDecimal(tokens[2]);
+    latestGPSData.deviceId = "GPS_TRACKER_001";
     latestGPSData.latitude = nmeaToDecimal(tokens[2]);
     latestGPSRawData.latitudeDir = tokens[3].charAt(0);
     latestGPSRawData.longitude = nmeaToDecimal(tokens[4]);
